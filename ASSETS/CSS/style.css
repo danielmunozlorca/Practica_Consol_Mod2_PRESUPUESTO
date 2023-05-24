@@ -1,0 +1,11 @@
+  .borrar-gasto:hover {
+    cursor: pointer;
+  }
+
+  .gastos-reg-bg {
+    background-color: rgba(250, 146, 28, 0.8);
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

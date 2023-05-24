@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="ASSETS/CSS/style.css" />
+    <title>Aplicación de presupuesto</title>
+  </head>
+
+  <body>
+    <!-- super clase contenedor-->
+  <div class="container text-info">
+    <div class="row mt-3">
+      <div class="col-md-5">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-1">
+                <h1>PR</h1> <!-- le puse más de un h1 porque es parte del mismo título -->
+              </div>
+               
+              <!-- le pongo el fontawesome entremedio, simulando la E -->
+              <div class="col-md-1 ml-1 mt-1">
+                <span class="fa-stack fa-lg fa-flip"> <!-- ahí para que gire como una moneda -->
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fas fa-euro-sign fa-stack-1x fa-inverse"></i>
+                </span>
+              </div>
+
+              <div class="col-md-8 ml-1">
+                <h1>SUPUESTO APP</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="container">
+      <div class="row mt-3">
+        <!-- Card de ingreso, total ingreso y botón de cálculo -->
+        <div class="col-md-4">
+          <!-- de los 12 ocupa 4 -->
+          <div class="card bg-success">
+            <!-- se hace por separado para que asigne mismos espacios de separación, sino se desconfigura -->
+            <div class="card-body">
+              <h5 class="card-title text-white">Ingreso</h5>
+              <div class="form-group">
+                <label for="input-ingreso" class="text-white"
+                  >Ingresa tu Presupuesto:</label
+                >
+                <input type="number" class="form-control" id="input-ingreso" />
+              </div>
+              <button class="btn btn-light" id="btn-calcular">Calcular</button>
+            </div>
+          </div>
+        </div>
+
+        <!--Cards que irán al costado derecho del Ingreso (ppto, gasto y saldo)-->
+        <div class="col-md-8">
+          <!-- de los 12 ocupa 8 -->
+          <div class="row">
+            <!-- Card de ppto -->
+            <div class="col-md-4">
+              <div class="card bg-info">
+                <div class="card-body">
+                  <h5 class="card-title text-white">Presupuesto</h5>
+                  <p class="card-text">$<span id="presupuesto">0</span></p>
+                </div>
+              </div>
+            </div>
+            <!-- Card de Gastos -->
+            <div class="col-md-4">
+              <div class="card bg-danger">
+                <div class="card-body">
+                  <h5 class="card-title text-white">Gastos</h5>
+                  <p class="card-text">$<span id="gastos">0</span></p>
+                </div>
+              </div>
+            </div>
+            <!-- Card de saldo -->
+            <div class="col-md-4">
+              <div class="card bg-warning">
+                <div class="card-body">
+                  <h5 class="card-title text-white">Saldo</h5>
+                  <p class="card-text">$<span id="saldo">0</span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--Acá es la sección de gastos-->
+      <div class="row mt-4">
+        <div class="col-md-4">
+          <div class="card bg-danger">
+            <div class="card-body">
+              <h5 class="card-title text-white">Gastos</h5>
+              <div class="form-group">
+                <label for="input-gasto" class="text-white"
+                  >Ingresa el nombre del Gasto:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="input-gasto"
+                  required
+                />
+                <!-- de todas maneras la validación es en el js -->
+              </div>
+              <div class="form-group">
+                <label for="input-valor" class="text-white"
+                  >Ingresa el valor del Gasto:</label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="input-valor"
+                  min="0.1"
+                  required
+                />
+                <!-- de todas formas la validación la hace en el js -->
+              </div>
+              <button class="btn btn-light" id="btn-gasto">Añadir Gasto</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- acá los gastos registrados que irán a la derecha del card rojo peligroso de gastos -->
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="text-center text-white gastos-reg-bg rounded">
+                <h5>Gastos Registrados:</h5>
+              </div>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Descripción:</th>
+                    <th>Valor:</th>
+                    <th></th>
+                    <!-- espacio para tarrito de basura -->
+                  </tr>
+                </thead>
+                <tbody id="gastos-registrados"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts de Bootstrap, jQuery y JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNSfQtN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="assets/JS/script.js"></script>
+  </body>
+</html>
